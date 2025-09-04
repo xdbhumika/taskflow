@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8"/>
+  <meta name="viewport" content="width=device-width,initial-scale=1"/>
+  <title>TaskFlow To-Do</title>
+  <link rel="stylesheet" href="styles.css"/>
+</head>
+<body class="dark-mode">
+  <aside class="sidebar">
+    <div class="brand">
+      <svg viewBox="0 0 30 30" width="28">
+        <circle cx="15" cy="15" r="13" fill="#776bff"/>
+        <text x="15" y="20" text-anchor="middle" font-size="17" fill="#fff">&#10003;</text>
+      </svg>
+      TaskFlow
+    </div>
+    <nav>
+      <ul>
+        <li><button data-panel="tasks"><span class="icon"><svg width="20" height="20"><rect x="3" y="6" width="14" height="2" fill="#80aaff"/><rect x="3" y="12" width="14" height="2" fill="#b285ff"/></svg></span>All Tasks</button></li>
+        <li><button data-panel="categories"><span class="icon"><svg width="20" height="20"><circle cx="7" cy="10" r="3" fill="#8dc4ff"/><circle cx="14" cy="10" r="3" fill="#976bff"/></svg></span>Categories</button></li>
+        <li><button data-panel="analytics"><span class="icon"><svg width="20" height="20"><rect x="4" y="12" width="3" height="4" fill="#187bc2"/><rect x="9" y="8" width="3" height="8" fill="#776bff"/><rect x="14" y="5" width="3" height="11" fill="#80aaff"/></svg></span>Analytics</button></li>
+      </ul>
+    </nav>
+  </aside>
+  <main>
+    <section id="tasksPanel">
+      <div class="your-tasks-flex">
+        <span class="your-tasks-title">Your Tasks</span>
+        <button class="add-task-btn" id="addTaskBtn">
+          <span class="plus-icon">
+            <svg width="23" height="23">
+              <circle cx="11.5" cy="11.5" r="11" fill="#14151c" />
+              <path d="M11.5 6 v11 M6 11.5 h11" stroke="#7ecffd" stroke-width="2.4" stroke-linecap="round"/>
+            </svg>
+          </span>
+          <span class="btn-text">Add Task</span>
+        </button>
+      </div>
+      <section class="filters">
+        <input id="searchInput" placeholder="Search tasks..."/>
+        <select id="statusFilter">
+          <option value="all">All Status</option>
+          <option value="pending">Pending</option>
+          <option value="completed">Completed</option>
+        </select>
+        <select id="priorityFilter">
+          <option value="all">All Priorities</option>
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+        <select id="categoryFilter"></select>
+        <select id="sortFilter">
+          <option value="manual">Manual Order</option>
+          <option value="due">Due Date</option>
+          <option value="priority">Priority</option>
+        </select>
+      </section>
+      <ul class="tasks-list" id="tasksList"></ul>
+    </section>
+    <section id="categoriesPanel" style="display:none;">
+      <h2 class="category-title">Categories</h2>
+      <div class="category-tabs" id="categoryTabs"></div>
+      <ul id="categoriesList"></ul>
+    </section>
+    <section id="analyticsPanel" style="display:none;">
+      <h2>Task Analytics</h2>
+      <div class="analytics-grid" id="analyticsGrid"></div>
+      <canvas id="barChart" width="360" height="200"></canvas>
+      <canvas id="pieChart" width="220" height="220"></canvas>
+    </section>
+  </main>
+  <div class="modal" id="modal">
+    <form class="modal-content" id="taskForm">
+      <h2 id="modalTitle">Add Task</h2>
+      <input type="hidden" id="taskId"/>
+      <label>Title <input type="text" id="titleInput" required/></label>
+      <label>Description <textarea id="descInput" rows="2"></textarea></label>
+      <label>Priority
+        <select id="priorityInput">
+          <option value="high">High</option>
+          <option value="medium">Medium</option>
+          <option value="low">Low</option>
+        </select>
+      </label>
+      <label>Category
+        <input id="categoryInput" list="categoryDataList"/>
+        <datalist id="categoryDataList"></datalist>
+      </label>
+      <label>Due Date <input id="dateInput" type="date"/></label>
+      <div class="modal-actions">
+        <button type="submit">Save</button>
+        <button type="button" id="cancelBtn">Cancel</button>
+      </div>
+    </form>
+  </div>
+  <div class="toast" id="toast"></div>
+  <script src="app.js"></script>
+</body>
+</html>
